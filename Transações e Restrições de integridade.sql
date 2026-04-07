@@ -1,71 +1,72 @@
--- ========================================
--- EXERCÍCIO 01
--- ========================================
+-- ============================================================================
+-- ATIVIDADE DE BANCO DE DADOS - SCHEMA E TABELAS
+-- ============================================================================
+
+-- ============================================================================
+-- QUESTÃO 01: Criar SCHEMA
+-- ============================================================================
 CREATE SCHEMA avaliacaocontinua;
 
--- ========================================
--- EXERCÍCIO 02
--- ========================================
+-- ============================================================================
+-- QUESTÃO 02: Criar tabela company
+-- ============================================================================
 CREATE TABLE avaliacaocontinua.company (
-    company_name VARCHAR(50) NOT NULL,
-    city VARCHAR(50),
-    CONSTRAINT pk_company PRIMARY KEY (company_name)
+    company_name CHAR(15) NOT NULL,
+    city CHAR(30),
+    PRIMARY KEY (company_name)
 );
 
--- ========================================
--- EXERCÍCIO 03
--- ========================================
+-- ============================================================================
+-- QUESTÃO 03: Criar tabela employee
+-- ============================================================================
 CREATE TABLE avaliacaocontinua.employee (
-    person_name VARCHAR(50) NOT NULL,
-    street VARCHAR(50),
-    city VARCHAR(50),
-    CONSTRAINT pk_employee PRIMARY KEY (person_name)
+    person_name CHAR(20) NOT NULL,
+    street CHAR(30),
+    city CHAR(30),
+    PRIMARY KEY (person_name)
 );
 
--- ========================================
--- EXERCÍCIO 04
--- ========================================
+-- ============================================================================
+-- QUESTÃO 04: Criar tabela manages
+-- ============================================================================
 CREATE TABLE avaliacaocontinua.manages (
-    person_name VARCHAR(50) NOT NULL,
-    manager_name VARCHAR(50),
-    CONSTRAINT pk_manages PRIMARY KEY (person_name)
+    person_name CHAR(20) NOT NULL,
+    manager_name CHAR(20),
+    PRIMARY KEY (person_name)
 );
 
-
--- ========================================
--- EXERCÍCIO 05
--- ========================================
+-- ============================================================================
+-- QUESTÃO 05: Criar tabela works
+-- ============================================================================
 CREATE TABLE avaliacaocontinua.works (
-    person_name VARCHAR(50) NOT NULL,
-    company_name VARCHAR(50) NOT NULL,
-    salary DECIMAL(10,2),
-    CONSTRAINT pk_works PRIMARY KEY (person_name)
+    person_name CHAR(20) NOT NULL,
+    company_name CHAR(15) NOT NULL,
+    salary INTEGER,
+    PRIMARY KEY (person_name)
 );
 
--- ========================================
--- EXERCÍCIO 06
--- ========================================
+-- ============================================================================
+-- QUESTÃO 06: FK entre works e employee
+-- ============================================================================
 ALTER TABLE avaliacaocontinua.works
-ADD CONSTRAINT fk_works_employee
+ADD CONSTRAINT fk_person_name
 FOREIGN KEY (person_name) REFERENCES avaliacaocontinua.employee(person_name)
-ON UPDATE CASCADE
-ON DELETE CASCADE;
+ON DELETE CASCADE
+ON UPDATE CASCADE;
 
--- ========================================
--- EXERCÍCIO 07
--- ========================================
+-- ============================================================================
+-- QUESTÃO 07: FK entre works e company
+-- ============================================================================
 ALTER TABLE avaliacaocontinua.works
-ADD CONSTRAINT fk_works_company
+ADD CONSTRAINT fk_company_name
 FOREIGN KEY (company_name) REFERENCES avaliacaocontinua.company(company_name)
-ON UPDATE CASCADE
-ON DELETE CASCADE;
+ON DELETE CASCADE
+ON UPDATE CASCADE;
 
-
--- ========================================
--- EXERCÍCIO 08
--- ========================================
-ALTER TABLE avaliacaocontinua.works
-ADD CONSTRAINT fk_works_company
-FOREIGN KEY (company_name) REFERENCES avaliacaocontinua.company(company_name)
-ON UPDATE CASCADE
+-- ============================================================================
+-- QUESTÃO 08: FK entre manages e employee
+-- ============================================================================
+ALTER TABLE avaliacaocontinua.manages
+ADD CONSTRAINT fk_manages_person_name
+FOREIGN KEY (person_name) REFERENCES avaliacaocontinua.employee(person_name)
 ON DELETE CASCADE;
